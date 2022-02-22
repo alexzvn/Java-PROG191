@@ -1,7 +1,9 @@
 package dev.alexzvn;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.Date;
 
 import org.junit.Test;
@@ -60,5 +62,21 @@ public class StatisticTest {
     public void canSearchProduct() {
         assertEquals(1, products.search("1").count());
         assertEquals(0, products.search("ansdkjan").count());
+    }
+
+    @Test
+    public void canSaveToFile() {
+        products.saveTo("test.txt");
+
+        File file = new File("test.txt");
+
+        assertTrue(file.exists());
+    }
+
+    @Test
+    public void canLoadFromFile() {
+        Statistic products = Statistic.loadFrom("test.txt");
+
+        assertEquals(2, products.items().count());
     }
 }
