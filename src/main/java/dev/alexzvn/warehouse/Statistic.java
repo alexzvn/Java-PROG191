@@ -1,5 +1,11 @@
 package dev.alexzvn.warehouse;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
 import dev.alexzvn.utils.Collection;
 
 public class Statistic {
@@ -131,5 +137,42 @@ public class Statistic {
         }
 
         return new Statistic(products);
+    }
+
+    public void saveTo(String path) {
+        try {
+            saveTo(new File(path));
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Statistic loadFrom(String path) {
+        try {
+            return loadFrom(new File(path));
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void saveTo(File file) throws IOException, FileNotFoundException, UnsupportedEncodingException {
+
+        if (file.exists() == false) file.createNewFile();
+
+        PrintWriter writer = new PrintWriter(file, "UTF-8");
+
+        writer.write(serialize());
+
+        writer.close();
+    }
+
+    public static Statistic loadFrom(File file) throws IOException, FileNotFoundException, UnsupportedEncodingException {
+        return fromString(new String(java.nio.file.Files.readAllBytes(file.toPath()), "UTF-8"));
     }
 }
