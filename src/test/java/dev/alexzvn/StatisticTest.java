@@ -56,4 +56,9 @@ public class StatisticTest {
         assertEquals("new name", products.items().first().name);
     }
 
+    @Test
+    public void canSearchProduct() {
+        assertEquals(1, products.search("1").count());
+        assertEquals(0, products.search("ansdkjan").count());
+    }
 }
