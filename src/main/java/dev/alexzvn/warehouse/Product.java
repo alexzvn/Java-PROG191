@@ -36,6 +36,12 @@ public class Product {
         this.updated_at = new Date();
     }
 
+    public String[] toFlat() {
+        return new String[] {
+            id, name, description, quantity.toString(), price.toString(), created_at.toString(), updated_at.toString()
+        };
+    }
+
     public String toString() {
         final String format = "%s||%s||%s||%s||%s||%s||%s";
 

@@ -22,6 +22,10 @@ public class Collection<T> {
         this.items = new java.util.ArrayList<T>();
     }
 
+    public void replace(T item, int index) {
+        items.set(index, item);
+    }
+
     public T shift() {
         return items.remove(0);
     }

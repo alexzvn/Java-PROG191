@@ -12,6 +12,7 @@ public class Statistic {
     protected Collection<Product> products = new Collection<Product>();
 
     public enum Sort {
+        DEFAULT,
         ID_ASC,
         ID_DESC,
         NAME_ASC,
@@ -155,10 +156,8 @@ public class Statistic {
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            return new Statistic();
         }
-
-        return null;
     }
 
     public void saveTo(File file) throws IOException, FileNotFoundException, UnsupportedEncodingException {

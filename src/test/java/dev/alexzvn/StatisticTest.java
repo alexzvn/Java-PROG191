@@ -71,6 +71,8 @@ public class StatisticTest {
         File file = new File("test.txt");
 
         assertTrue(file.exists());
+
+        file.delete();
     }
 
     @Test
