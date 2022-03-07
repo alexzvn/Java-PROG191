@@ -10,7 +10,6 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
 
 public class ManagerFrame extends JFrame {
     private JPanel panel;
@@ -26,6 +25,7 @@ public class ManagerFrame extends JFrame {
     private JButton clearDataButton;
     private JButton importButton;
     private JButton exportButton;
+    private JButton logoutButton;
 
     private Statistic products = new Statistic();
 
@@ -38,6 +38,8 @@ public class ManagerFrame extends JFrame {
 
     public ManagerFrame() {
         setContentPane(panel);
+        setTitle("Warehouse manager");
+
         sortInput.setModel(sortModel);
         registerEvents();
         loadData();
@@ -122,8 +124,14 @@ public class ManagerFrame extends JFrame {
             File file = chooser.getSelectedFile();
             file = file.isDirectory() ? new File(file, fileData) : file;
 
-            products.saveTo(file.getAbsolutePath());
-            infoLabel.setText("File saved to: " + file.getAbsolutePath());
+            try {
+                products.saveTo(file);
+                infoLabel.setText("File saved to: " + file.getAbsolutePath());
+            }
+
+            catch (Exception ex) {
+                infoLabel.setText("There is error when export file, please try another location!");
+            }
         });
 
         importButton.addActionListener(e -> {
@@ -144,6 +152,10 @@ public class ManagerFrame extends JFrame {
 
             infoLabel.setText("Success loaded " + products.items().count() + " kind of products");
         });
+
+        logoutButton.addActionListener(e -> {
+            WarehouseScreen.frame.switchToLoginFrame();
+        });
     }
 
     protected void loadData() {
@@ -155,6 +167,10 @@ public class ManagerFrame extends JFrame {
         return new DefaultTableModel(new String[] {
                 "ID", "Name", "Description", "Quantity", "Price"
         }, 0);
+    }
+
+    public Statistic getProducts() {
+        return products;
     }
 
     protected void setModel(DefaultTableModel model) {

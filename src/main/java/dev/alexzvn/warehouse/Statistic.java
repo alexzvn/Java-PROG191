@@ -63,11 +63,11 @@ public class Statistic {
     }
 
     public boolean has(Product product) {
-        return products.find(p -> p.id == product.id) != null;
+        return products.find(p -> p.id.equals(product.id)) != null;
     }
 
     public boolean has(String id) {
-        return products.find(p -> p.id == id) != null;
+        return products.find(p -> p.id.equals(id)) != null;
     }
 
     public Product get(Product product) {

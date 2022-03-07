@@ -2,6 +2,7 @@ package dev.alexzvn;
 
 import dev.alexzvn.frames.CreateProductDialog;
 import dev.alexzvn.frames.EditProductDialog;
+import dev.alexzvn.frames.LoginFrame;
 import dev.alexzvn.frames.ManagerFrame;
 import dev.alexzvn.warehouse.Product;
 
@@ -13,13 +14,19 @@ public class WarehouseScreen extends JFrame {
     final public ManagerFrame managerFrame = new ManagerFrame();
 
     protected WarehouseScreen() {
-        setup();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        switchToLoginFrame();
     }
 
-    protected void setup() {
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void switchToManagerFrame() {
+        setSize(1000, 700);
         setContentPane(managerFrame.getContentPane());
+        pack();
+    }
+
+    public void switchToLoginFrame() {
+        setSize(500, 400);
+        setContentPane(new LoginFrame().getContentPane());
     }
 
     public void showCreateDialog() {

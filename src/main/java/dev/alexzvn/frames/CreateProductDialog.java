@@ -86,24 +86,26 @@ public class CreateProductDialog extends JDialog {
     }
 
     private String validateContent() {
-        String error = "";
-
         if (idInput.getText().isEmpty()) {
-            error = "ID is required\n";
+            return "ID is required\n";
+        }
+
+        if (WarehouseScreen.frame.managerFrame.getProducts().has(idInput.getText())) {
+            return "ID already exists";
         }
 
         if (nameInput.getText().isEmpty()) {
-            error = "Name is required\n";
+            return "Name is required\n";
         }
 
         if (quantityInput.getText().isEmpty()) {
-            error = "Quantity is required\n";
+            return "Quantity is required\n";
         }
 
         if (priceInput.getText().isEmpty()) {
-            error = "Price is required\n";
+            return "Price is required\n";
         }
 
-        return error;
+        return "";
     }
 }
